@@ -1,13 +1,16 @@
-import path from 'path';
-import { dirname } from 'splendid-ui/node';
-const __dirname = dirname(import.meta.url);
-console.log(path.sep);
+import http from 'http';
 
-const filePath = path.join('/content', 'subfolder', 'test.txt');
-console.log(filePath);
-
-const base = path.basename(filePath);
-console.log(base);
-
-const absolute = path.resolve(__dirname, 'content', 'subfolder', 'test.txt');
-console.log(absolute);
+const server = http.createServer((req, res) => {
+  if (req.url === '/') {
+    res.end('Hello Coders, Welcome');
+  } else if (req.url === '/about') {
+    res.end('Everything about Coding');
+  } else {
+    res.end(`
+      <h1>Oops!</h1>
+    <p>We can't seem to find the page you are looking for</p>
+    <a href="/">back home</a>
+      `);
+  }
+});
+server.listen(8080, 'localhost', () => console.log('Server is listening...'));
